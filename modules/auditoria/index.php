@@ -135,12 +135,26 @@ include '../../includes/header.php';
                                     <small style="color: var(--gray);"><?php echo htmlspecialchars($reg['email'] ?? ''); ?></small>
                                 </td>
                                 <td>
+                                    <?php 
+                                    $accionMap = [
+                                        'LOGIN' => 'INICIO SESIÓN',
+                                        'LOGOUT' => 'CIERRE SESIÓN',
+                                        'CREATE' => 'CREAR',
+                                        'UPDATE' => 'ACTUALIZAR',
+                                        'DELETE' => 'ELIMINAR',
+                                        'USER_REGISTERED' => 'REGISTRO USUARIO',
+                                        'PRE_INSCRIPCION' => 'PRE-INSCRIPCIÓN'
+                                    ];
+                                    
+                                    $accionOriginal = $reg['accion'];
+                                    $accionMostrar = $accionMap[$accionOriginal] ?? $accionOriginal;
+                                    ?>
                                     <span class="badge badge-<?php 
-                                        echo strpos($reg['accion'], 'LOGIN') !== false ? 'primary' : 
-                                             (strpos($reg['accion'], 'CREATE') !== false ? 'success' : 
-                                             (strpos($reg['accion'], 'DELETE') !== false ? 'danger' : 'warning')); 
+                                        echo strpos($accionOriginal, 'LOGIN') !== false ? 'primary' : 
+                                             (strpos($accionOriginal, 'CREATE') !== false || strpos($accionOriginal, 'REGISTER') !== false ? 'success' : 
+                                             (strpos($accionOriginal, 'DELETE') !== false ? 'danger' : 'warning')); 
                                     ?>">
-                                        <?php echo htmlspecialchars($reg['accion']); ?>
+                                        <?php echo htmlspecialchars($accionMostrar); ?>
                                     </span>
                                 </td>
                                 <td><?php echo htmlspecialchars($reg['tabla_afectada'] ?? 'N/A'); ?></td>
