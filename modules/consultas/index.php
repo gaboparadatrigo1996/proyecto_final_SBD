@@ -153,6 +153,12 @@ include '../../includes/header.php';
                     class="btn btn-outline btn-sm" style="text-align: left;">
                 7. Actividad de usuarios
             </button>
+
+            <button onclick="document.querySelector('textarea[name=query]').value = this.getAttribute('data-query')" 
+                    data-query="SELECT p.nombres, p.apellidos, e.nombre_evento, i.estado_inscripcion, COALESCE(pag.monto, 0) as monto_pagado, pag.metodo_pago, CASE WHEN c.id_certificado IS NOT NULL THEN 'SI' ELSE 'NO' END as tiene_certificado FROM participantes p JOIN inscripciones i ON p.id_participante = i.id_participante JOIN eventos e ON i.id_evento = e.id_evento LEFT JOIN pagos pag ON i.id_inscripcion = pag.id_inscripcion LEFT JOIN certificados c ON i.id_inscripcion = c.id_inscripcion ORDER BY e.fecha_inicio DESC, p.apellidos ASC"
+                    class="btn btn-outline btn-sm" style="text-align: left;">
+                8. Reporte completo (Participantes + Pagos + Certificados)
+            </button>
         </div>
     </div>
 </div>
