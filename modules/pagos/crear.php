@@ -15,12 +15,22 @@ try {
         SELECT i.id_inscripcion, 
                p.nombres, p.apellidos, p.dni,
                e.nombre_evento,
-               e.fecha_inicio
+               e.fecha_inicio,
+               i.estado_inscripcion,
+               pag.estado_pago
         FROM inscripciones i
         INNER JOIN participantes p ON i.id_participante = p.id_participante
         INNER JOIN eventos e ON i.id_evento = e.id_evento
-        WHERE i.estado_inscripcion = 'confirmada'
-        ORDER BY e.fecha_inicio DESC, p.apellidos
+        LEFT JOIN pagos pag ON i.id_inscripcion = pag.id_inscripcion
+        WHERE i.estado_inscripcion IN ('pendiente', 'confirmada')
+        AND (pag.id_pago IS NULL OR pag.estado_pago != 'aprobado')
+        ORDER BY 
+            CASE i.estado_inscripcion 
+                WHEN 'pendiente' THEN 0 
+                ELSE 1 
+            END,
+            e.fecha_inicio DESC, 
+            p.apellidos
     ")->fetchAll();
     
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -32,24 +42,45 @@ try {
         if ($monto <= 0) {
             $error = "El monto debe ser mayor a cero.";
         } else {
-            $stmt = $db->prepare("
-                INSERT INTO pagos (id_inscripcion, monto, fecha_pago, metodo_pago, estado_pago, registrado_por)
-                VALUES (?, ?, ?, ?, 'pendiente', ?)
-            ");
+            // Start transaction
+            $db->beginTransaction();
             
-            $stmt->execute([
-                $inscripcionId,
-                $monto,
-                $fecha,
-                $metodo,
-                $_SESSION['user_id']
-            ]);
-            
-            $pagoId = $db->lastInsertId();
-            
-            logAudit($_SESSION['user_id'], 'CREATE', 'pagos', $pagoId, "Pago registrado: Bs. $monto");
-            
-            redirect('modules/pagos/index.php?success=created');
+            try {
+                // Insert payment
+                $stmt = $db->prepare("
+                    INSERT INTO pagos (id_inscripcion, monto, fecha_pago, metodo_pago, estado_pago, registrado_por)
+                    VALUES (?, ?, ?, ?, 'pendiente', ?)
+                ");
+                
+                $stmt->execute([
+                    $inscripcionId,
+                    $monto,
+                    $fecha,
+                    $metodo,
+                    $_SESSION['user_id']
+                ]);
+                
+                $pagoId = $db->lastInsertId();
+                
+                // If inscription was pending, confirm it automatically
+                $stmt = $db->prepare("
+                    UPDATE inscripciones 
+                    SET estado_inscripcion = 'confirmada'
+                    WHERE id_inscripcion = ? 
+                    AND estado_inscripcion = 'pendiente'
+                ");
+                $stmt->execute([$inscripcionId]);
+                
+                $db->commit();
+                
+                logAudit($_SESSION['user_id'], 'CREATE', 'pagos', $pagoId, "Pago registrado: Bs. $monto");
+                
+                redirect('modules/pagos/index.php?success=created');
+                
+            } catch (Exception $e) {
+                $db->rollBack();
+                throw $e;
+            }
         }
     }
     
@@ -78,12 +109,21 @@ include '../../includes/header.php';
                         <option value="">Seleccione una inscripción</option>
                         <?php foreach ($inscripciones as $insc): ?>
                             <option value="<?php echo $insc['id_inscripcion']; ?>" <?php echo $inscripcionPreselect == $insc['id_inscripcion'] ? 'selected' : ''; ?>>
+                                <?php if ($insc['estado_inscripcion'] == 'pendiente'): ?>
+                                    ⚠️ [PENDIENTE] 
+                                <?php endif; ?>
                                 [<?php echo $insc['dni']; ?>] <?php echo htmlspecialchars($insc['nombres'] . ' ' . $insc['apellidos']); ?> 
                                 - <?php echo htmlspecialchars($insc['nombre_evento']); ?>
                                 (<?php echo date('d/m/Y', strtotime($insc['fecha_inicio'])); ?>)
                             </option>
                         <?php endforeach; ?>
                     </select>
+                    <?php if (!empty($inscripciones)): ?>
+                        <small style="display: block; margin-top: 0.5rem; color: var(--gray);">
+                            ⚠️ = Pre-inscripción pendiente de aprobación | 
+                            Se muestran inscripciones sin pago o con pago no aprobado
+                        </small>
+                    <?php endif; ?>
                 </div>
                 
                 <div class="form-group">
@@ -113,8 +153,17 @@ include '../../includes/header.php';
             </div>
         </form>
         
-        <div style="margin-top: 2rem; padding: 1rem; background: var(--light); border-radius: 8px; border-left: 4px solid var(--info);">
-            <strong>ℹ️ Nota:</strong> Los pagos se registran con estado "Pendiente" y deben ser aprobados manualmente por un administrador.
+        <div style="margin-top: 2rem; padding: 1.5rem; background: var(--light); border-radius: 8px; border-left: 4px solid var(--info);">
+            <h4 style="margin: 0 0 1rem 0; font-size: 1rem;">ℹ️ Flujo de Aprobación de Pre-inscripciones</h4>
+            <ol style="margin: 0; padding-left: 1.5rem;">
+                <li><strong>Pre-inscripción:</strong> El participante se registra y solicita inscripción (estado: pendiente)</li>
+                <li><strong>Asignar Pago:</strong> El administrador registra aquí el monto y método de pago</li>
+                <li><strong>Confirmación Automática:</strong> Al asignar el pago, la inscripción pendiente se confirma automáticamente ✅</li>
+                <li><strong>Aprobación de Pago:</strong> El pago se crea con estado "Pendiente" y debe aprobarse en la sección de Pagos</li>
+            </ol>
+            <p style="margin: 1rem 0 0 0; color: var(--gray); font-size: 0.9rem;">
+                💡 Las pre-inscripciones pendientes aparecen marcadas con ⚠️ [PENDIENTE] al inicio de la lista
+            </p>
         </div>
     </div>
 </div>
