@@ -1,0 +1,39 @@
+# IDE and Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# PHP
+vendor/
+composer.lock
+
+# Logs
+*.log
+error_log
+debug.log
+
+# Uploads and user-generated content
+uploads/*
+!uploads/.htaccess
+comprobantes/*
+!comprobantes/.htaccess
+certificados/generados/*
+!certificados/generados/.htaccess
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Environment files (if you add them later)
+.env
+
+# Cache
+cache/
+*.cache
