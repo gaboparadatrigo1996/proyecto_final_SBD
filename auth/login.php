@@ -201,6 +201,10 @@
                 </button>
             </form>
             
+            <div style="text-align: center; margin-top: 1.5rem;">
+                ¿No tienes una cuenta? <a href="../public/registro.php" style="color: var(--primary); font-weight: 600;">Regístrate como Participante</a>
+            </div>
+            
             <div class="login-footer">
                 <p>Sistema de Gestión de Eventos Académicos v1.0</p>
                 <p style="font-size: 0.75rem; margin-top: 0.5rem;">

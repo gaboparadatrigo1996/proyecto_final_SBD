@@ -307,6 +307,17 @@
                 </div>
                 <?php endif; ?>
                 
+                <?php if (hasRole('Participante')): ?>
+                <div class="nav-section">
+                    <div class="nav-section-title">Mi Portal</div>
+                    <a href="<?php echo BASE_URL; ?>/modules/participante/mis_eventos.php" class="nav-item <?php echo ($currentPage ?? '') == 'mis-eventos' ? 'active' : ''; ?>">
+                        <span class="nav-icon">🎯</span>
+                        <span>Mis Eventos</span>
+                    </a>
+                </div>
+                <?php endif; ?>
+                
+                <?php if (hasRole(['Administrador', 'Responsable de Inscripción', 'Asistente'])): ?>
                 <div class="nav-section">
                     <div class="nav-section-title">Reportes</div>
                     <a href="<?php echo BASE_URL; ?>/modules/reportes/index.php" class="nav-item <?php echo ($currentPage ?? '') == 'reportes' ? 'active' : ''; ?>">
@@ -318,6 +329,7 @@
                         <span>Consultas SQL</span>
                     </a>
                 </div>
+                <?php endif; ?>
                 
                 <?php if (hasRole('Administrador')): ?>
                 <div class="nav-section">

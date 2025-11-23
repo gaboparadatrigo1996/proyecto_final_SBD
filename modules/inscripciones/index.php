@@ -52,6 +52,34 @@ try {
 include '../../includes/header.php';
 ?>
 
+<?php
+// Count pending registrations
+$pendientesCount = count(array_filter($inscripciones, function($i) {
+    return $i['estado_inscripcion'] == 'pendiente';
+}));
+?>
+
+<?php if ($pendientesCount > 0 && empty($estadoFilter)): ?>
+<div class="card" style="margin-bottom: 2rem; border-left: 4px solid var(--warning);">
+    <div class="card-header" style="background: rgba(245, 158, 11, 0.1);">
+        <h3 class="card-title" style="display: flex; align-items: center; gap: 0.5rem;">
+            <span>⚠️</span>
+            <span>Solicitudes Pendientes de Aprobación</span>
+            <span class="badge badge-warning"><?php echo $pendientesCount; ?></span>
+        </h3>
+    </div>
+    <div class="card-body">
+        <p style="margin-bottom: 1rem; color: var(--gray);">
+            Hay <strong><?php echo $pendientesCount; ?> inscripciones pendientes</strong> que requieren tu atención. 
+            Revisa cada solicitud, asigna el monto de pago y confirma la inscripción.
+        </p>
+        <a href="?estado=pendiente" class="btn btn-warning">
+            📋 Ver Solicitudes Pendientes
+        </a>
+    </div>
+</div>
+<?php endif; ?>
+
 <div class="card">
     <div class="card-body">
         <form method="GET" style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 1rem; align-items: end;">

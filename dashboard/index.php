@@ -2,6 +2,11 @@
 require_once '../config/config.php';
 checkSession();
 
+// Redirect participants to their portal
+if (hasRole('Participante')) {
+    redirect('modules/participante/mis_eventos.php');
+}
+
 $currentPage = 'dashboard';
 $pageTitle = 'Dashboard';
 
