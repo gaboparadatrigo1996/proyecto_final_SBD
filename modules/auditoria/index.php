@@ -138,6 +138,8 @@ include '../../includes/header.php';
                                     <?php 
                                     $accionMap = [
                                         'LOGIN' => 'INICIO SESIÓN',
+                                        'LOGIN_SUCCESS' => 'INICIO SESIÓN EXITOSO',
+                                        'LOGIN_FAILED' => 'INICIO SESIÓN FALLIDO',
                                         'LOGOUT' => 'CIERRE SESIÓN',
                                         'CREATE' => 'CREAR',
                                         'UPDATE' => 'ACTUALIZAR',
