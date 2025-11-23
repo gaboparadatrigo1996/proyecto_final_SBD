@@ -65,6 +65,10 @@ include '../../includes/header.php';
             
             <button type="submit" class="btn btn-primary">🔍 Filtrar</button>
             
+            <a href="validar.php" class="btn btn-outline" target="_blank">
+                ✓ Validar Certificado
+            </a>
+            
             <?php if ($pendientes > 0): ?>
                 <a href="generar.php" class="btn btn-success">
                     ⚡ Generar Certificados Pendientes (<?php echo $pendientes; ?>)
@@ -118,9 +122,6 @@ include '../../includes/header.php';
                                     <div style="display: flex; gap: 0.5rem;">
                                         <a href="descargar.php?id=<?php echo $cert['id_certificado']; ?>" class="btn btn-sm btn-primary" title="Descargar PDF">
                                             📄 PDF
-                                        </a>
-                                        <a href="validar.php?codigo=<?php echo urlencode($cert['codigo_validacion']); ?>" class="btn btn-sm btn-success" title="Validar" target="_blank">
-                                            ✓ Validar
                                         </a>
                                     </div>
                                 </td>
