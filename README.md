@@ -1,11 +1,12 @@
-# 🎓 Sistema de Gestión de Eventos Académicos
+# 🎓 Sistema de Gestión de Eventos Académicos - UMSA
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)
 ![PHP](https://img.shields.io/badge/PHP-7.4+-purple.svg)
 ![MySQL](https://img.shields.io/badge/MySQL-5.7+-orange.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Status](https://img.shields.io/badge/status-active-success.svg)
 
-Sistema completo para la gestión de eventos académicos (congresos, seminarios, talleres) con control de inscripciones, pagos, asistencia y certificados.
+Sistema completo para la gestión de eventos académicos (congresos, seminarios, talleres) de la Universidad Mayor de San Andrés, con control de inscripciones, pagos, asistencia, certificados y auditoría completa.
 
 ---
 
@@ -28,10 +29,12 @@ Sistema completo para la gestión de eventos académicos (congresos, seminarios,
 
 ### 🔐 Autenticación y Seguridad
 - ✅ Sistema de login con roles (Administrador, Responsable, Asistente, Participante)
-- ✅ Contraseñas encriptadas con BCrypt
+- ✅ Contraseñas encriptadas con BCrypt (cost: 12)
 - ✅ Control de sesiones con timeout automático (30 minutos)
 - ✅ Registro público para participantes
 - ✅ Auditoría completa de acciones del sistema
+- ✅ Interfaz de login moderna con fondo gris claro
+- ✅ Protección contra accesos no autorizados
 
 ### 📅 Gestión de Eventos
 - ✅ CRUD completo de eventos académicos
@@ -48,7 +51,14 @@ Sistema completo para la gestión de eventos académicos (congresos, seminarios,
 - ✅ Vinculación con institución
 - ✅ Historial de participación
 
-### 📝 Inscripciones
+### � Gestión de Usuarios
+- ✅ CRUD completo de usuarios del sistema
+- ✅ Edición de usuarios (nombre, email, rol, estado)
+- ✅ Cambio de contraseña opcional
+- ✅ Activar/Desactivar usuarios
+- ✅ Asignación de roles
+
+### �📝 Inscripciones
 - ✅ Pre-inscripción automática por participantes
 - ✅ Flujo de aprobación por administradores
 - ✅ Control de estados (Pendiente, Confirmada, Cancelada)
@@ -68,13 +78,17 @@ Sistema completo para la gestión de eventos académicos (congresos, seminarios,
 - ✅ Registro de asistencia por sesión
 - ✅ Estados: Presente, Tardanza, Ausente
 - ✅ Control de horarios de entrada
+- ✅ Cálculo automático de porcentaje de asistencia
 - ✅ Reportes de asistencia
 
 ### 🎖️ Certificados
-- ✅ Generación de certificados digitales
-- ✅ Código de validación único
-- ✅ Almacenamiento de archivos PDF
-- ✅ Vinculación con inscripciones
+- ✅ Generación automática de certificados digitales
+- ✅ Código de validación único por certificado
+- ✅ Requisitos automáticos: inscripción confirmada, ≥80% asistencia, pago aprobado
+- ✅ Diseño profesional en PDF formato A4 horizontal
+- ✅ **Descarga de certificados por participantes**
+- ✅ Validación pública de certificados
+- ✅ **Auditoría de descargas de certificados**
 
 ### 📊 Reportes Completos
 - ✅ **Dashboard General**: Estadísticas y métricas generales
@@ -86,12 +100,20 @@ Sistema completo para la gestión de eventos académicos (congresos, seminarios,
 - ✅ Exportación a Excel
 - ✅ Filtros avanzados
 
+### 🔍 Auditoría
+- ✅ Registro de todas las acciones del sistema
+- ✅ Tracking de creación, edición, eliminación
+- ✅ **Registro de descargas de certificados**
+- ✅ IP de origen del usuario
+- ✅ Filtros por usuario, acción y fechas
+
 ### 🎨 Interfaz de Usuario
 - ✅ Diseño moderno y responsivo
 - ✅ Menú lateral contextual según rol
 - ✅ Dashboard personalizado por tipo de usuario
 - ✅ Notificaciones y alertas visuales
-- ✅ Gradientes y animaciones
+- ✅ Tema de colores gris/profesional
+- ✅ Animaciones suaves
 - ✅ Modo oscuro en sidebar
 
 ---
@@ -273,7 +295,8 @@ date_default_timezone_set('America/La_Paz');
 #### Seguimiento
 - Ve el estado de tus inscripciones
 - Revisa estado de pagos
-- Descarga certificados cuando estén disponibles
+- **Descarga tus certificados** cuando estén disponibles (se registra en auditoría)
+- Valida certificados con el código único
 
 ### 2️⃣ Como Administrador
 
@@ -293,10 +316,20 @@ date_default_timezone_set('America/La_Paz');
 
 #### Generación de Certificados
 1. Ve a "Certificados"
-2. Click en "➕ Generar Certificado"
-3. Selecciona inscripción
-4. Sistema genera código único
-5. Opcional: Upload de archivo PDF
+2. Click en "➕ Generar Certificados"
+3. Sistema muestra participantes que califican automáticamente:
+   - Inscripción confirmada
+   - Asistencia ≥ 80%
+   - Pago aprobado
+4. Click en "Generar Certificados Pendientes"
+5. Se generan con código único automático
+6. Participantes pueden descargar desde su portal
+
+#### Gestión de Usuarios
+1. Ve a "Usuarios"
+2. Puedes crear, editar o cambiar estado de usuarios
+3. Editar permite cambiar: nombre, email, rol, estado
+4. Cambio de contraseña es opcional al editar
 
 #### Reportes
 1. Ve a "Reportes"
@@ -385,8 +418,51 @@ date_default_timezone_set('America/La_Paz');
 | Pre-inscripción | ✅ Inscribirse a eventos |
 | Mis Inscripciones | ✅ Ver estado |
 | Mis Pagos | ✅ Ver estado |
-| Mis Certificados | ✅ Descargar |
+| Mis Certificados | ✅ **Descargar certificados PDF** |
 | Gestión | ❌ Sin acceso |
+
+---
+
+## 🎖️ Sistema de Certificados
+
+### Requisitos para Generación Automática
+Para que un participante califique para un certificado, debe cumplir:
+1. ✅ Inscripción en estado **"Confirmada"**
+2. ✅ Asistencia **≥ 80%** de las sesiones del evento
+3. ✅ Pago en estado **"Aprobado"**
+
+### Flujo de Certificados
+
+```
+ADMINISTRADOR
+     │
+     ├─► 1. Ve "Certificados" → "Generar Certificados"
+     │        └─► Sistema muestra participantes que califican
+     │
+     ├─► 2. Click en "Generar Certificados"
+     │        └─► Se generan con código único: CERT-XXX-XXXX-XXXX
+     │
+     └─► 3. Certificados disponibles para descarga
+
+PARTICIPANTE
+     │
+     ├─► 1. Login en su cuenta
+     │
+     ├─► 2. Ve "Mis Eventos"
+     │        └─► Tarjeta verde indica certificado disponible
+     │
+     ├─► 3. Click en "📥 Descargar Certificado"
+     │        └─► Se abre PDF en nueva pestaña
+     │        └─► **Se registra en auditoría**
+     │
+     └─► 4. Imprimir o guardar PDF
+```
+
+### Validación Pública de Certificados
+- URL: `/modules/certificados/validar.php`
+- Cualquier persona puede validar un certificado con el código
+- Muestra información del participante y evento
+- No requiere login
 
 ---
 
@@ -397,6 +473,8 @@ proyectoBD/
 ├── 📂 assets/
 │   ├── css/
 │   │   └── style.css          # Estilos principales
+│   ├── images/
+│   │   └── logo_umsa.png      # Logo de la universidad
 │   └── js/
 │       └── main.js            # Scripts JavaScript
 │
@@ -406,7 +484,9 @@ proyectoBD/
 │   └── logout.php             # Cerrar sesión
 │
 ├── 📂 bd/
-│   └── database.sql           # Script de base de datos
+│   ├── database.sql           # Script de base de datos
+│   ├── database_objects.sql   # Vistas, funciones y triggers
+│   └── instalacion_completa.sql # Script completo de instalación
 │
 ├── 📂 config/
 │   ├── config.php             # Configuración general
@@ -421,23 +501,73 @@ proyectoBD/
 │
 ├── 📂 modules/
 │   ├── 📂 asistencia/         # Control de asistencia
+│   │   ├── index.php          # Lista de asistencias
+│   │   └── marcar.php         # Marcar asistencia
+│   │
 │   ├── 📂 auditoria/          # Logs del sistema
+│   │   └── index.php          # Ver auditoría
+│   │
 │   ├── 📂 certificados/       # Gestión de certificados
+│   │   ├── index.php          # Lista de certificados
+│   │   ├── generar.php        # Generar certificados
+│   │   ├── descargar.php      # Descargar/Ver PDF (con auditoría)
+│   │   └── validar.php        # Validación pública
+│   │
 │   ├── 📂 consultas/          # Consultas SQL
+│   │   └── index.php          # Ejecutar consultas
+│   │
 │   ├── 📂 eventos/            # CRUD de eventos
+│   │   ├── index.php          # Lista de eventos
+│   │   ├── crear.php          # Crear evento
+│   │   ├── editar.php         # Editar evento
+│   │   ├── ver.php            # Ver detalle evento
+│   │   └── sesiones.php       # Gestionar sesiones
+│   │
 │   ├── 📂 inscripciones/      # Gestión de inscripciones
+│   │   ├── index.php          # Lista de inscripciones
+│   │   ├── crear.php          # Crear inscripción
+│   │   └── ver.php            # Ver detalle
+│   │
 │   ├── 📂 pagos/              # Gestión de pagos
+│   │   ├── index.php          # Lista de pagos
+│   │   ├── crear.php          # Crear/Asignar pago
+│   │   ├── ver.php            # Ver detalle pago
+│   │   ├── aprobar.php        # Aprobar pago
+│   │   └── rechazar.php       # Rechazar pago
+│   │
 │   ├── 📂 participante/       # Portal del participante
+│   │   ├── mis_eventos.php    # Ver eventos y certificados
+│   │   └── pre_inscribir.php  # Pre-inscribirse a evento
+│   │
 │   ├── 📂 participantes/      # CRUD de participantes
+│   │   ├── index.php          # Lista de participantes
+│   │   ├── crear.php          # Crear participante
+│   │   ├── editar.php         # Editar participante
+│   │   └── ver.php            # Ver detalle
+│   │
 │   ├── 📂 reportes/           # Sistema de reportes
+│   │   ├── index.php          # Menú de reportes
+│   │   ├── dashboard.php      # Dashboard estadístico
+│   │   ├── eventos.php        # Reporte de eventos
+│   │   ├── participantes.php  # Reporte de participantes
+│   │   ├── pagos.php          # Reporte de pagos
+│   │   ├── asistencia.php     # Reporte de asistencia
+│   │   └── certificados.php   # Reporte de certificados
+│   │
 │   └── 📂 usuarios/           # Gestión de usuarios
+│       ├── index.php          # Lista de usuarios
+│       ├── crear.php          # Crear usuario
+│       ├── editar.php         # Editar usuario
+│       └── cambiar_estado.php # Activar/Desactivar
 │
 ├── 📂 public/
 │   ├── registro.php           # Registro público
 │   └── registro_process.php   # Procesar registro
 │
+├── index.php                  # Página principal (redirect)
+├── actualizar_admin.php       # Script de actualización
 ├── .gitignore
-└── README.md                   # Este archivo
+└── README.md                  # Este archivo
 ```
 
 ---
@@ -571,16 +701,34 @@ proyectoBD/
 ## 📸 Capturas de Pantalla
 
 ### Login
-Página de inicio de sesión con diseño moderno y gradiente animado.
+Página de inicio de sesión con diseño moderno y fondo gris claro profesional.
 
 ### Dashboard Administrador
 Vista general con estadísticas, eventos recientes y acciones rápidas.
 
 ### Portal del Participante
-Vista personalizada con eventos disponibles y estado de inscripciones.
+- Vista personalizada con eventos disponibles
+- Estado de inscripciones y pagos
+- **Tarjetas de certificados disponibles con botón de descarga**
+- Estadísticas personales (inscripciones, confirmadas, pendientes, certificados)
 
 ### Gestión de Inscripciones
 Lista de inscripciones con alertas de solicitudes pendientes.
+
+### Gestión de Usuarios
+- Lista de usuarios con filtros
+- Edición completa de usuarios
+- Cambio de estado activo/inactivo
+
+### Certificados
+- **Generación automática por lotes**
+- Vista previa de participantes que califican
+- Diseño profesional en PDF
+
+### Validación de Certificados
+- Página pública con fondo gris claro
+- Búsqueda por código de validación
+- Muestra información completa del certificado
 
 ### Reportes
 Dashboard de estadísticas generales con gráficos y métricas.
@@ -627,7 +775,19 @@ ADMINISTRADOR
 
 RESULTADO
      └─► Participante confirmado e inscrito ✅
+     └─► Puede descargar certificado cuando esté disponible
 ```
+
+---
+
+## 🔗 URLs Importantes
+
+| Página | URL | Descripción |
+|--------|-----|-------------|
+| Login | `/auth/login.php` | Inicio de sesión |
+| Registro | `/public/registro.php` | Registro de participantes |
+| Dashboard | `/dashboard/index.php` | Panel principal |
+| Validar Certificado | `/modules/certificados/validar.php` | Validación pública |
 
 ---
 
@@ -639,9 +799,10 @@ RESULTADO
 - ✅ Sanitización de inputs (htmlspecialchars)
 - ✅ Prepared statements (prevención SQL injection)
 - ✅ Control de acceso basado en roles
-- ✅ Auditoría completa de acciones
+- ✅ **Auditoría completa de acciones** (incluye descargas)
 - ✅ Validación de datos en cliente y servidor
 - ✅ Protección contra registros duplicados
+- ✅ Verificación de permisos por módulo
 
 ### Recomendaciones para Producción
 - 🔐 Cambiar credenciales por defecto
@@ -743,27 +904,99 @@ Para reportar bugs o solicitar características:
 
 ## 📊 Estadísticas del Proyecto
 
-- **Lenguaje Principal**: PHP
-- **Base de Datos**: MySQL
-- **Archivos PHP**: 100+
+- **Lenguaje Principal**: PHP 7.4+
+- **Base de Datos**: MySQL 5.7+
+- **Archivos PHP**: 50+
 - **Tablas BD**: 9
+- **Vistas BD**: 1 (vista_certificados_pendientes)
+- **Funciones BD**: 1 (fn_porcentaje_asistencia_participante)
 - **Roles de Usuario**: 4
-- **Módulos**: 10
+- **Módulos**: 11
 - **Reportes**: 6
 
 ---
 
 ## 🚦 Versiones
 
-### v1.0.0 (Actual)
+### v1.1.0 (Actual)
 - ✅ Sistema completo de gestión de eventos
 - ✅ Auto-registro de participantes
 - ✅ Flujo de pre-inscripción
 - ✅ Sistema de roles y permisos
 - ✅ Reportes completos con exportación
 - ✅ Control de asistencia
-- ✅ Generación de certificados
+- ✅ Generación automática de certificados
+- ✅ **Descarga de certificados por participantes**
+- ✅ **Auditoría de descargas de certificados**
+- ✅ **Edición de usuarios del sistema**
+- ✅ **Validación pública de certificados**
+- ✅ **Interfaz con tema gris profesional**
+
+### v1.0.0
+- ✅ Sistema base de gestión de eventos
+- ✅ CRUD de eventos, participantes, inscripciones
+- ✅ Sistema de pagos
+- ✅ Control de asistencia básico
+- ✅ Generación manual de certificados
 
 ---
 
-**Desarrollado con ❤️ para la comunidad académica**
+## 🔧 Funcionalidades Técnicas
+
+### Base de Datos
+
+#### Vista: `vista_certificados_pendientes`
+Muestra participantes que califican para certificado:
+- Inscripción confirmada
+- Pago aprobado
+- Asistencia ≥ 80%
+- Sin certificado emitido
+
+#### Función: `fn_porcentaje_asistencia_participante`
+Calcula el porcentaje de asistencia de un participante a un evento.
+
+### Auditoría
+El sistema registra automáticamente:
+- `CREATE` - Creación de registros
+- `UPDATE` - Modificación de registros
+- `DELETE` - Eliminación de registros
+- `LOGIN` - Inicios de sesión
+- `LOGOUT` - Cierres de sesión
+- `DOWNLOAD` - **Descarga de certificados**
+
+---
+
+## 🎨 Diseño Visual
+
+### Paleta de Colores
+- **Fondo principal**: `#f1f5f9` (gris muy claro)
+- **Fondo login/validación**: `#e5e7eb` (gris claro)
+- **Sidebar**: `#0f172a` (azul oscuro)
+- **Primario**: `#6366f1` (índigo)
+- **Éxito**: `#10b981` (verde)
+- **Peligro**: `#ef4444` (rojo)
+- **Advertencia**: `#f59e0b` (amarillo)
+
+### Certificados PDF
+- Formato: A4 Horizontal (297mm x 210mm)
+- Logo: Universidad Mayor de San Andrés
+- Bordes: Doble marco elegante
+- Colores: Gris profesional (`#4b5563`)
+- Información: Nombre, evento, fechas, asistencia, código
+
+---
+
+**Desarrollado por Gabriel Parada Trigo - Universidad Mayor de San Andrés**
+
+---
+
+## 📅 Última Actualización
+
+**Fecha**: 24 de Noviembre de 2025
+
+**Cambios recientes**:
+- Implementación de descarga de certificados para participantes
+- Auditoría de descargas de certificados
+- Módulo de edición de usuarios
+- Nuevo tema visual gris profesional
+- Validación pública de certificados mejorada
