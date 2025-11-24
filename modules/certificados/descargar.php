@@ -61,7 +61,7 @@ try {
         
         body {
             font-family: 'Georgia', 'Times New Roman', serif;
-            background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 100%);
+            background: #e5e7eb;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -85,7 +85,7 @@ try {
             left: 15mm;
             right: 15mm;
             bottom: 10mm;
-            border: 3px solid #1e3a8a;
+            border: 3px solid #4b5563;
             border-radius: 8px;
         }
         
@@ -96,7 +96,7 @@ try {
             left: 17mm;
             right: 17mm;
             bottom: 12mm;
-            border: 1px solid #7c3aed;
+            border: 1px solid #6b7280;
             border-radius: 6px;
         }
         
@@ -126,7 +126,7 @@ try {
         .university-name {
             font-size: 24px;
             font-weight: bold;
-            color: #1e3a8a;
+            color: #4b5563;
             text-transform: uppercase;
             letter-spacing: 1px;
             line-height: 1.2;
@@ -150,10 +150,10 @@ try {
         .participant {
             font-size: 32px;
             font-weight: bold;
-            color: #1e3a8a;
+            color: #4b5563;
             margin: 15px 0;
             padding: 12px 20px;
-            border-bottom: 2px solid #1e3a8a;
+            border-bottom: 2px solid #4b5563;
             display: inline-block;
             min-width: 400px;
         }
@@ -168,7 +168,7 @@ try {
         
         .event-name {
             font-weight: bold;
-            color: #7c3aed;
+            color: #6b7280;
             font-size: 18px;
         }
         
@@ -216,8 +216,8 @@ try {
         
         .btn {
             background: white;
-            color: #1e3a8a;
-            border: 2px solid #1e3a8a;
+            color: #4b5563;
+            border: 2px solid #4b5563;
             padding: 12px 24px;
             font-size: 16px;
             font-weight: bold;
@@ -230,7 +230,7 @@ try {
         }
         
         .btn:hover {
-            background: #1e3a8a;
+            background: #4b5563;
             color: white;
         }
         
@@ -304,7 +304,7 @@ try {
                 
                 <div class="certificate-info">
                     <div>Código de Verificación:</div>
-                    <div style="font-weight: bold; color: #1e3a8a; margin: 5px 0; font-size: 12px;">
+                    <div style="font-weight: bold; color: #4b5563; margin: 5px 0; font-size: 12px;">
                         <?php echo htmlspecialchars($certificado['codigo_validacion']); ?>
                     </div>
                     <div>Fecha de Emisión: <?php echo date('d/m/Y', strtotime($certificado['fecha_emision'])); ?></div>

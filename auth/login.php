@@ -13,7 +13,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #e5e7eb;
             position: relative;
             overflow: hidden;
         }
@@ -23,7 +23,7 @@
             position: absolute;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background: radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px);
             background-size: 50px 50px;
             animation: moveBackground 20s linear infinite;
         }
@@ -69,7 +69,7 @@
         .login-logo {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #4b5563;
             border-radius: 20px;
             margin: 0 auto 1.5rem;
             display: flex;
@@ -77,7 +77,7 @@
             justify-content: center;
             font-size: 2.5rem;
             color: white;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 30px rgba(75, 85, 99, 0.3);
         }
         
         .login-title {
