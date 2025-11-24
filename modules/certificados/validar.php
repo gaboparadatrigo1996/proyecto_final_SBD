@@ -45,7 +45,7 @@ if (empty($codigo)) {
     <link rel="stylesheet" href="../../assets/css/style.css">
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #e5e7eb;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -59,7 +59,7 @@ if (empty($codigo)) {
             padding: 3rem;
             max-width: 600px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
         }
         
         .validation-header {

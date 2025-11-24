@@ -42,7 +42,9 @@ try {
             p.estado_pago,
             p.monto,
             p.metodo_pago,
-            c.codigo_validacion as certificado_codigo
+            c.id_certificado,
+            c.codigo_validacion as certificado_codigo,
+            c.fecha_emision as certificado_fecha
         FROM inscripciones i
         INNER JOIN eventos e ON i.id_evento = e.id_evento
         LEFT JOIN pagos p ON i.id_inscripcion = p.id_inscripcion
@@ -134,7 +136,7 @@ include '../../includes/header.php';
 }
 </style>
 
-<div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 2rem;">
+<div class="stats-grid" style="grid-template-columns: repeat(5, 1fr); margin-bottom: 2rem;">
     <div class="stat-card info">
         <div class="stat-header">
             <div>
@@ -184,6 +186,22 @@ include '../../includes/header.php';
                 <div class="stat-label">Eventos Disponibles</div>
             </div>
             <div class="stat-icon">📅</div>
+        </div>
+    </div>
+    
+    <div class="stat-card" style="background: linear-gradient(135deg, #10b981, #059669); color: white;">
+        <div class="stat-header">
+            <div>
+                <div class="stat-value">
+                    <?php 
+                    echo count(array_filter($misInscripciones, function($i) { 
+                        return !empty($i['certificado_codigo']); 
+                    })); 
+                    ?>
+                </div>
+                <div class="stat-label">Certificados</div>
+            </div>
+            <div class="stat-icon">🎖️</div>
         </div>
     </div>
 </div>
@@ -255,11 +273,34 @@ include '../../includes/header.php';
                         </div>
                         
                         <?php if ($inscr['certificado_codigo']): ?>
-                            <button class="btn btn-sm btn-success">
-                                🎖️ Certificado: <?php echo $inscr['certificado_codigo']; ?>
-                            </button>
+                            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                <a href="../certificados/descargar.php?id=<?php echo $inscr['id_certificado']; ?>" 
+                                   class="btn btn-success" target="_blank" title="Descargar Certificado">
+                                    📥 Descargar Certificado
+                                </a>
+                            </div>
                         <?php endif; ?>
                     </div>
+                    
+                    <?php if ($inscr['certificado_codigo']): ?>
+                    <div style="margin-top: 1rem; padding: 1rem; background: linear-gradient(135deg, #d1fae5, #a7f3d0); border-radius: 8px; border-left: 4px solid #10b981;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <strong style="color: #065f46;">🎖️ ¡Certificado Disponible!</strong>
+                                <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #047857;">
+                                    Código: <code style="background: white; padding: 2px 8px; border-radius: 4px;"><?php echo $inscr['certificado_codigo']; ?></code>
+                                    <?php if ($inscr['certificado_fecha']): ?>
+                                        <span style="margin-left: 1rem;">Emitido: <?php echo date('d/m/Y', strtotime($inscr['certificado_fecha'])); ?></span>
+                                    <?php endif; ?>
+                                </p>
+                            </div>
+                            <a href="../certificados/descargar.php?id=<?php echo $inscr['id_certificado']; ?>" 
+                               class="btn btn-sm btn-success" target="_blank">
+                                🖨️ Imprimir PDF
+                            </a>
+                        </div>
+                    </div>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>

@@ -31,6 +31,17 @@ try {
         redirect('modules/certificados/index.php?error=notfound');
     }
     
+    // Registrar en auditoría la descarga del certificado
+    logAudit(
+        $_SESSION['user_id'], 
+        'DOWNLOAD', 
+        'certificados', 
+        $certificadoId, 
+        "Certificado descargado - Participante: " . $certificado['nombres'] . ' ' . $certificado['apellidos'] . 
+        " - Evento: " . $certificado['nombre_evento'] . 
+        " - Código: " . $certificado['codigo_validacion']
+    );
+    
     // Calculate duration in days
     $fechaInicio = new DateTime($certificado['fecha_inicio']);
     $fechaFin = new DateTime($certificado['fecha_fin']);
