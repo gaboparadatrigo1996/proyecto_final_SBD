@@ -574,38 +574,6 @@ proyectoBD/
 
 ## 🗄️ Base de Datos
 
-### Diagrama Entidad-Relación
-
-```
-┌─────────────┐          ┌─────────────┐
-│   roles     │──────┬───│  usuarios   │
-└─────────────┘      │   └─────────────┘
-                     │           │
-                     │           │ creado_por
-                     │           ↓
-┌─────────────┐      │   ┌─────────────┐      ┌─────────────┐
-│participantes│      │   │   eventos   │──────│  sesiones   │
-└─────────────┘      │   └─────────────┘      └─────────────┘
-       │             │           │                     │
-       │             │           │                     │
-       │             │   ┌───────┴───────┐            │
-       │             │   │               │            │
-       └─────────────┼───│inscripciones  │            │
-                     │   └───────┬───────┘            │
-                     │           │                     │
-                     │   ┌───────┴────────┐           │
-                     │   │                │           │
-                     │   ↓                ↓           ↓
-                     │┌────────┐   ┌───────────┐ ┌──────────┐
-                     ││ pagos  │   │certificados│ │asistencias│
-                     │└────────┘   └───────────┘ └──────────┘
-                     │
-                     ↓
-              ┌──────────┐
-              │auditoria │
-              └──────────┘
-```
-
 ### Tablas Principales
 
 #### `roles`
@@ -804,74 +772,7 @@ RESULTADO
 - ✅ Protección contra registros duplicados
 - ✅ Verificación de permisos por módulo
 
-### Recomendaciones para Producción
-- 🔐 Cambiar credenciales por defecto
-- 🔐 Configurar HTTPS
-- 🔐 Implementar CSRF tokens
-- 🔐 Rate limiting en login
-- 🔐 Backup automático de BD
-- 🔐 Configurar firewall
-- 🔐 Deshabilitar `display_errors` en PHP
 
----
-
-## 🐛 Solución de Problemas
-
-### Error de conexión a base de datos
-```
-**Síntoma**: "Connection failed" o "Access denied"
-
-**Solución**:
-1. Verificar que MySQL esté corriendo
-2. Revisar credenciales en config/database.php
-3. Verificar que la base de datos exista
-4. Verificar permisos del usuario MySQL
-```
-
-### No aparecen estilos
-```
-**Síntoma**: Página sin formato
-
-**Solución**:
-1. Verificar que BASE_URL esté correctamente configurado
-2. Verificar que Apache tenga mod_rewrite habilitado
-3. Verificar permisos de lectura en carpeta assets/
-```
-
-### Sesión expira inmediatamente
-```
-**Síntoma**: Logout automático al navegar
-
-**Solución**:
-1. Verificar configuración de sesiones en php.ini
-2. Ajustar SESSION_TIMEOUT en config.php
-3. Verificar permisos en carpeta de sesiones
-```
-
-### No se pueden subir archivos
-```
-**Síntoma**: Error al subir comprobantes
-
-**Solución**:
-1. Ajustar upload_max_filesize en php.ini
-2. Ajustar post_max_size en php.ini
-3. Verificar permisos de escritura en uploads/
-4. Verificar MAX_FILE_SIZE en config.php
-```
-
----
-
-## 🤝 Contribuir
-
-Las contribuciones son bienvenidas. Para cambios importantes:
-
-1. Fork del repositorio
-2. Crear rama de feature (`git checkout -b feature/NuevaCaracteristica`)
-3. Commit de cambios (`git commit -am 'Agregar nueva característica'`)
-4. Push a la rama (`git push origin feature/NuevaCaracteristica`)
-5. Crear Pull Request
-
----
 
 ## 📄 Licencia
 
@@ -885,20 +786,12 @@ Este proyecto está bajo la Licencia MIT. Ver archivo `LICENSE` para más detall
 - GitHub: [@gaboparadatrigo1996](https://github.com/gaboparadatrigo1996)
 - Repositorio: [proyectoBD](https://github.com/gaboparadatrigo1996/proyectoBD)
 
----
 
-## 🙏 Agradecimientos
-
-- Proyecto desarrollado para gestión de eventos académicos
-- Diseño inspirado en sistemas modernos de gestión
-- Iconos: Emojis nativos
-
----
 
 ## 📞 Soporte
 
 Para reportar bugs o solicitar características:
-- Abrir un [Issue](https://github.com/gaboparadatrigo1996/proyectoBD/issues) en GitHub
+- Abrir un [Issue](https://github.com/gaboparadatrigo1996/proyecto_final_SBD/issues) en GitHub
 
 ---
 
@@ -932,12 +825,6 @@ Para reportar bugs o solicitar características:
 - ✅ **Validación pública de certificados**
 - ✅ **Interfaz con tema gris profesional**
 
-### v1.0.0
-- ✅ Sistema base de gestión de eventos
-- ✅ CRUD de eventos, participantes, inscripciones
-- ✅ Sistema de pagos
-- ✅ Control de asistencia básico
-- ✅ Generación manual de certificados
 
 ---
 
