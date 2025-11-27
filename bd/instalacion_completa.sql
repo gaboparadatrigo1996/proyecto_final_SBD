@@ -629,5 +629,5 @@ HAVING califica = 1;
 -- INSTALACIÓN COMPLETA
 -- =====================================================
 
-SELECT '✅ BASE DE DATOS INSTALADA CORRECTAMENTE' as RESULTADO;
-SELECT '👤 Usuario: admin@evento.com / Password: admin123' as ACCESO;
+SELECT ' BASE DE DATOS INSTALADA CORRECTAMENTE' as RESULTADO;
+SELECT ' Usuario: admin@evento.com / Password: admin123' as ACCESO;
