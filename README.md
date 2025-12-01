@@ -784,7 +784,7 @@ Este proyecto está bajo la Licencia MIT. Ver archivo `LICENSE` para más detall
 
 **Gabriel Parada Trigo**
 - GitHub: [@gaboparadatrigo1996](https://github.com/gaboparadatrigo1996)
-- Repositorio: [proyectoBD](https://github.com/gaboparadatrigo1996/proyectoBD)
+- Repositorio: [proyectoBD](https://github.com/gaboparadatrigo1996/proyecto_final_SBD)
 
 
 
@@ -807,26 +807,6 @@ Para reportar bugs o solicitar características:
 - **Módulos**: 11
 - **Reportes**: 6
 
----
-
-## 🚦 Versiones
-
-### v1.1.0 (Actual)
-- ✅ Sistema completo de gestión de eventos
-- ✅ Auto-registro de participantes
-- ✅ Flujo de pre-inscripción
-- ✅ Sistema de roles y permisos
-- ✅ Reportes completos con exportación
-- ✅ Control de asistencia
-- ✅ Generación automática de certificados
-- ✅ **Descarga de certificados por participantes**
-- ✅ **Auditoría de descargas de certificados**
-- ✅ **Edición de usuarios del sistema**
-- ✅ **Validación pública de certificados**
-- ✅ **Interfaz con tema gris profesional**
-
-
----
 
 ## 🔧 Funcionalidades Técnicas
 
@@ -849,41 +829,11 @@ El sistema registra automáticamente:
 - `DELETE` - Eliminación de registros
 - `LOGIN` - Inicios de sesión
 - `LOGOUT` - Cierres de sesión
-- `DOWNLOAD` - **Descarga de certificados**
+- `DOWNLOAD` - **Descarga de certificados 
 
----
 
-## 🎨 Diseño Visual
-
-### Paleta de Colores
-- **Fondo principal**: `#f1f5f9` (gris muy claro)
-- **Fondo login/validación**: `#e5e7eb` (gris claro)
-- **Sidebar**: `#0f172a` (azul oscuro)
-- **Primario**: `#6366f1` (índigo)
-- **Éxito**: `#10b981` (verde)
-- **Peligro**: `#ef4444` (rojo)
-- **Advertencia**: `#f59e0b` (amarillo)
-
-### Certificados PDF
-- Formato: A4 Horizontal (297mm x 210mm)
-- Logo: Universidad Mayor de San Andrés
-- Bordes: Doble marco elegante
-- Colores: Gris profesional (`#4b5563`)
-- Información: Nombre, evento, fechas, asistencia, código
 
 ---
 
 **Desarrollado por Gabriel Parada Trigo - Universidad Mayor de San Andrés**
 
----
-
-## 📅 Última Actualización
-
-**Fecha**: 24 de Noviembre de 2025
-
-**Cambios recientes**:
-- Implementación de descarga de certificados para participantes
-- Auditoría de descargas de certificados
-- Módulo de edición de usuarios
-- Nuevo tema visual gris profesional
-- Validación pública de certificados mejorada
