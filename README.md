@@ -784,7 +784,7 @@ Este proyecto está bajo la Licencia MIT. Ver archivo `LICENSE` para más detall
 
 **Gabriel Parada Trigo**
 - GitHub: [@gaboparadatrigo1996](https://github.com/gaboparadatrigo1996)
-- Repositorio: [proyectoBD](https://github.com/gaboparadatrigo1996/proyecto_final_SBD)
+- Repositorio: [proyecto_final_SBD](https://github.com/gaboparadatrigo1996/proyecto_final_SBD)
 
 
 
